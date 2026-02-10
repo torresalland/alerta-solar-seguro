@@ -14,7 +14,7 @@ const leadSchema = z.object({
 
 type LeadData = z.infer<typeof leadSchema>;
 
-const WHATSAPP_NUMBER = "5511999999999"; // Replace with actual number
+const WHATSAPP_NUMBER = "5584999184225";
 
 function formatPhoneInput(value: string): string {
   const digits = value.replace(/\D/g, "").slice(0, 11);
@@ -69,13 +69,12 @@ const LeadForm = () => {
 
       if (error) throw error;
 
-      // Show analyzing state
       setLoading(false);
       setAnalyzing(true);
 
       setTimeout(() => {
         const msg = encodeURIComponent(
-          `Olá, me chamo ${result.data.nome_completo}. Fiz o cadastro no site sobre o risco do sistema solar. Minha instalação é ${result.data.tipo_instalacao} e tem ${result.data.tempo_instalacao}. Quero saber se tenho direito à indenização.`
+          `Olá, me chamo ${result.data.nome_completo}. Fiz o cadastro no site sobre conformidade do sistema solar. Minha instalação é ${result.data.tipo_instalacao} e tem ${result.data.tempo_instalacao}. Quero verificar se meu sistema está em conformidade.`
         );
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
         setAnalyzing(false);
@@ -99,8 +98,8 @@ const LeadForm = () => {
         <div className="container mx-auto px-4 max-w-lg">
           <div className="bg-card rounded-2xl shadow-xl border border-border p-8 md:p-10 text-center">
             <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
-            <p className="text-xl font-bold text-foreground">Analisando perfil...</p>
-            <p className="text-muted-foreground mt-2">Aguarde enquanto verificamos sua elegibilidade.</p>
+            <p className="text-xl font-bold text-foreground">Verificando conformidade...</p>
+            <p className="text-muted-foreground mt-2">Aguarde enquanto analisamos seu sistema.</p>
           </div>
         </div>
       </section>
@@ -110,12 +109,21 @@ const LeadForm = () => {
   return (
     <section id="formulario" className="py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4 max-w-lg">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-black text-foreground mb-3">
+            Seu sistema fotovoltaico está em conformidade com a nova norma?
+          </h2>
+          <p className="text-muted-foreground text-base max-w-md mx-auto">
+            Faça uma verificação orientativa e entenda se o seu sistema atende aos requisitos atuais de segurança.
+          </p>
+        </div>
+
         <div className="bg-card rounded-2xl shadow-xl border border-border p-8 md:p-10">
           <div className="flex items-center gap-3 mb-6">
             <ShieldCheck className="w-7 h-7 text-primary" />
-            <h2 className="text-xl md:text-2xl font-bold text-foreground">
-              Verificar Elegibilidade e Risco Gratuitamente
-            </h2>
+            <h3 className="text-lg md:text-xl font-bold text-foreground">
+              Verificar Conformidade Gratuitamente
+            </h3>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -187,12 +195,12 @@ const LeadForm = () => {
                   Enviando...
                 </span>
               ) : (
-                "VERIFICAR MEU SISTEMA AGORA"
+                "VERIFICAR CONFORMIDADE DO MEU SISTEMA"
               )}
             </button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Análise 100% gratuita e confidencial. Você será redirecionado para um especialista jurídico.
+              Atendimento automático via WhatsApp
             </p>
           </form>
         </div>
