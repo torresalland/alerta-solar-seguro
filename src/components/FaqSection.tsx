@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "Isso vai custar dinheiro para mim?",
     answer:
-      "A verificação inicial é totalmente gratuita. Se identificarmos irregularidade, buscaremos que a empresa instaladora ou fabricante arquem com a adequação e eventuais indenizações.",
+      "A verificação inicial é totalmente gratuita. Se identificarmos irregularidade, buscaremos que a(s) empresa(s) responsáveis arquem com a adequação e eventuais indenizações.",
   },
   {
     question: "Meu instalador disse que está tudo certo. Devo confiar?",
