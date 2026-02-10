@@ -14,7 +14,7 @@ const leadSchema = z.object({
 
 type LeadData = z.infer<typeof leadSchema>;
 
-const WHATSAPP_NUMBER = "5584999184225";
+const WHATSAPP_NUMBER = "5511936197888";
 
 function formatPhoneInput(value: string): string {
   const digits = value.replace(/\D/g, "").slice(0, 11);
