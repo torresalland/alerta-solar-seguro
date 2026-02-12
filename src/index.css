@@ -15,11 +15,12 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 20% 15%;
 
-    --primary: 146 48% 36%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 222 47% 11%;
+    /* Deep Blue #0f172a */
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 15% 95%;
-    --secondary-foreground: 210 20% 15%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
 
     --muted: 210 15% 93%;
     --muted-foreground: 210 8% 45%;
@@ -30,8 +31,9 @@
     --destructive: 0 100% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --warning: 45 100% 51%;
-    --warning-foreground: 210 40% 15%;
+    --warning: 24 95% 53%;
+    /* Safety Orange #f97316 */
+    --warning-foreground: 210 40% 98%;
 
     --success: 146 48% 36%;
     --success-foreground: 0 0% 100%;
@@ -87,6 +89,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
@@ -94,9 +97,12 @@
 }
 
 @keyframes pulse-cta {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
   }
+
   50% {
     box-shadow: 0 0 0 12px hsl(var(--primary) / 0);
   }

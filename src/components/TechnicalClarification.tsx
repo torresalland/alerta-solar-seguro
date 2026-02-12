@@ -13,7 +13,9 @@ const TechnicalClarification = () => {
           </div>
 
           <p className="text-muted-foreground leading-relaxed text-base mb-5">
-            A ABNT NBR 17.193:2025 <strong className="text-foreground">não proíbe</strong> inversores fotovoltaicos do tipo string. Ela estabelece que sistemas que operam com alta tensão em corrente contínua devem possuir mecanismos de desligamento rápido, como o RSD, para garantir segurança elétrica adequada.
+            É importante esclarecer: A norma ABNT NBR 17.193:2025 <strong className="text-foreground">NÃO proíbe</strong> a utilização de inversores do tipo string (parede). O que a norma exige é que, quando utilizados, esses equipamentos operem em conjunto com dispositivos de desligamento rápido (RSD) nível módulo.
+            <br /><br />
+            Se você possui um inversor string instalado sem essa proteção adicional, seu sistema está em desconformidade e operando com riscos desnecessários.
           </p>
 
           <div className="bg-primary/10 border border-primary/20 rounded-xl px-5 py-4 text-center">

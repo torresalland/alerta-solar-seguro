@@ -1,6 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import NormContextSection from "@/components/NormContextSection";
-import EducationalSection from "@/components/EducationalSection";
+import ComparisonSection from "@/components/ComparisonSection";
 import TechnicalClarification from "@/components/TechnicalClarification";
 import FaqSection from "@/components/FaqSection";
 import LeadForm from "@/components/LeadForm";
@@ -12,9 +12,9 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
         <HeroSection />
-        <NormContextSection />
-        <EducationalSection />
+        <ComparisonSection />
         <TechnicalClarification />
+        <NormContextSection />
         <FaqSection />
         <LeadForm />
       </main>

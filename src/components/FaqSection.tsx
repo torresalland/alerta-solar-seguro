@@ -9,17 +9,17 @@ const faqs = [
   {
     question: "O que é o RSD e por que ele é obrigatório?",
     answer:
-      "RSD (Rapid Shutdown) é o desligamento rápido. A norma ABNT NBR 17.193 exige que, ao desligar a energia da casa, os painéis solares parem de enviar alta voltagem instantaneamente para evitar eletrocussão e permitir combate a incêndios.",
+      "RSD (Rapid Shutdown) é o dispositivo de desligamento rápido exigido pela ABNT NBR 17.193:2025. Sua função é reduzir automaticamente a tensão dos painéis para níveis seguros (abaixo de 30V) em caso de emergência, protegendo sua família e profissionais de manutenção contra choques elétricos de alta voltagem.",
   },
   {
-    question: "Isso vai custar dinheiro para mim?",
+    question: "Como funciona o Diagnóstico Técnico Gratuito?",
     answer:
-      "A verificação inicial é totalmente gratuita. Se identificarmos irregularidade, buscaremos que a(s) empresa(s) responsáveis arquem com a adequação e eventuais indenizações.",
+      "Nossa equipe de engenharia analisa as especificações do seu sistema (inversor e ano de instalação) para identificar se ele possui a proteção RSD obrigatória. O processo é 100% online e você recebe um parecer técnico preliminar via WhatsApp.",
   },
   {
-    question: "Meu instalador disse que está tudo certo. Devo confiar?",
+    question: "Meu instalador disse que está tudo certo. Devo me preocupar?",
     answer:
-      "Muitas empresas economizaram não instalando o RSD para baratear custos, ignorando a norma técnica. Nossa análise jurídica é independente e baseada exclusivamente na legislação vigente e laudos técnicos.",
+      "Muitas instalações antigas ou de baixo custo utilizam inversores de parede (string) sem o dispositivo RSD adicional, ignorando a norma vigente. O funcionamento normal do sistema (geração de energia) não indica que ele é seguro. Nossa análise técnica verifica especificamente os critérios de segurança elétrica.",
   },
 ];
 
