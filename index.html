@@ -44,6 +44,44 @@
     })(window, document, "clarity", "script", "vftjoui29d");
   </script>
   <!-- End Microsoft Clarity Code -->
+  <!-- MAV Code -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-M7FNJJJ2');
+
+    // Criar inputs hidden no body
+    document.addEventListener('DOMContentLoaded', function () {
+      var accountInput = document.getElementById('accountID');
+      var accountPageInput = document.getElementById('accountPageID');
+
+      // Valores dos inputs (você pode modificar estes valores)
+      var accountValue = 'f9569b0e-087e-11f1-b09a-8bf38dbd1318';
+      var accountPageValue = '97fed894-0e73-11f1-9fff-ff7fee1bbcb4';
+
+      if (!accountInput) {
+        var input1 = document.createElement('input');
+        input1.type = 'hidden';
+        input1.id = 'accountID';
+        input1.value = accountValue;
+        document.body.appendChild(input1);
+      }
+
+      if (!accountPageInput) {
+        var input2 = document.createElement('input');
+        input2.type = 'hidden';
+        input2.id = 'accountPageID';
+        input2.value = accountPageValue;
+        document.body.appendChild(input2);
+      }
+    });
+  </script>
+  <!-- End MAV Code -->
 </head>
 
 <body>
