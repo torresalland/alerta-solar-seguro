@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Solar em Risco — Protocolo de Segurança Jurídica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#f4d125;--gold-10:rgba(244,209,37,.10);--gold-20:rgba(244,209,37,.20);
+  --gold-30:rgba(244,209,37,.30);--red:#ff3b3b;--red-10:rgba(255,59,59,.10);
+  --red-30:rgba(255,59,59,.30);--bg:#121108;--bg2:#1a180e;
+  --w5:rgba(255,255,255,.05);--w10:rgba(255,255,255,.10);
+  --s400:#94a3b8;--s300:#cbd5e1;--s600:#475569;
+  --font:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Courier New',Courier,monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#f1f5f9;font-family:var(--font);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 2px 2px,rgba(244,209,37,.05) 1px,transparent 0);background-size:24px 24px;pointer-events:none;z-index:0}
+img{display:block;max-width:100%}
+a{text-decoration:none;cursor:pointer}
+button{cursor:pointer;font-family:var(--font)}
+
+/* NEON */
+.neon-gold{text-shadow:0 0 10px rgba(244,209,37,.7),0 0 20px rgba(244,209,37,.3)}
+.neon-red{text-shadow:0 0 10px rgba(255,59,59,.7),0 0 20px rgba(255,59,59,.3)}
+
+/* PULSE */
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.65;transform:scale(1.08)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── URGENCY BAR ── */
+.ubar{position:sticky;top:0;z-index:70;background:var(--bg);border-bottom:1px solid var(--gold-30);box-shadow:0 0 30px rgba(244,209,37,.15);padding:10px 16px}
+.ubar-inner{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:8px}
+.ulabel{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-align:center}
+.uicon{color:var(--gold);font-size:18px;line-height:1;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+.timer-row{display:flex;align-items:center;gap:10px;font-family:var(--mono)}
+.tunit{display:flex;flex-direction:column;align-items:center;gap:2px}
+.tnum{font-size:26px;font-weight:900;color:var(--gold);line-height:1}
+.tlbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,209,37,.6);font-family:var(--font)}
+.tsep{font-size:20px;font-weight:700;color:rgba(244,209,37,.35);padding-bottom:12px;line-height:1}
+
+/* ── HEADER ── */
+header{position:sticky;top:72px;z-index:50;background:rgba(18,17,8,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(244,209,37,.12)}
+.hinner{max-width:1280px;margin:0 auto;padding:0 16px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{font-size:26px;color:var(--gold);line-height:1}
+.logo-main{font-size:16px;font-weight:700;letter-spacing:-.02em;color:#fff;text-transform:uppercase;line-height:1}
+.logo-main span{color:var(--gold)}
+.logo-sub{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,209,37,.6);margin-top:3px}
+.dnav{display:none;align-items:center;gap:28px}
+.nlink{font-size:13px;font-weight:500;color:var(--s400);transition:color .2s}
+.nlink:hover{color:var(--gold)}
+.btn-nav{background:var(--gold);color:var(--bg);font-size:13px;font-weight:700;padding:10px 20px;border:none;border-radius:8px;letter-spacing:.04em;box-shadow:0 0 20px rgba(244,209,37,.3);transition:transform .15s}
+.btn-nav:hover{transform:scale(1.05)}
+.btn-nav:active{transform:scale(.95)}
+.hbg{display:flex;flex-direction:column;gap:5px;background:none;border:none;padding:6px}
+.hbg span{display:block;width:22px;height:2px;background:var(--gold);border-radius:2px;transition:transform .25s ease,opacity .25s ease;transform-origin:center}
+
+/* ── MOBILE MENU ── */
+.mmenu{position:fixed;top:0;right:0;width:min(280px,80vw);height:100vh;background:var(--bg2);border-left:1px solid var(--gold-20);z-index:200;display:flex;flex-direction:column;padding:72px 28px 40px;gap:4px;transform:translateX(100%);transition:transform .3s ease;box-shadow:-20px 0 60px rgba(0,0,0,.6)}
+.mmenu.open{transform:translateX(0)}
+.mclose{position:absolute;top:18px;right:18px;background:none;border:none;color:var(--gold);font-size:22px;line-height:1;padding:4px}
+.mnlink{font-size:14px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:.1em;padding:14px 0;border-bottom:1px solid rgba(244,209,37,.1);transition:color .2s}
+.mnlink:hover{color:var(--gold)}
+.btn-mcta{margin-top:24px;background:var(--gold);color:var(--bg);font-size:13px;font-weight:700;padding:14px;border:none;border-radius:8px;letter-spacing:.06em;text-transform:uppercase;text-align:center;box-shadow:0 0 20px rgba(244,209,37,.3)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:199}
+.overlay.open{display:block}
+
+/* ── HERO ── */
+main{position:relative;z-index:1}
+.hero-wrap{padding:40px 16px 60px;max-width:1280px;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:40px}
+
+/* Alert badge */
+.abadge{display:inline-flex;align-items:center;gap:6px;background:var(--red-10);border:1px solid var(--red-30);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:24px;animation:pulse 2s ease-in-out infinite}
+.abadge-icon{font-size:14px;line-height:1;flex-shrink:0}
+
+.hero-title{font-size:clamp(34px,9vw,72px);font-weight:700;line-height:.95;letter-spacing:-.03em;color:#fff;margin-bottom:20px;text-transform:uppercase}
+.hero-title .gi{color:var(--gold);font-style:italic}
+.hero-sub{font-size:16px;color:var(--s400);max-width:480px;margin-bottom:32px;line-height:1.7}
+
+/* Form card */
+.fcard{background:var(--w5);border:1px solid var(--gold-20);border-radius:12px;padding:24px;position:relative;overflow:hidden;transition:box-shadow .3s}
+.fcard:focus-within{box-shadow:0 0 15px rgba(244,209,37,.3)}
+.ftag{position:absolute;top:0;right:0;background:var(--gold-10);border-left:1px solid var(--gold-30);border-bottom:1px solid var(--gold-30);border-bottom-left-radius:8px;padding:5px 12px;font-size:9px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.ftitle{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:#fff;margin-bottom:20px;margin-top:4px}
+.ftitle-icon{color:var(--gold);font-size:20px;line-height:1;flex-shrink:0}
+.fgroup{margin-bottom:16px}
+.flabel{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,209,37,.8);margin-bottom:7px;padding-left:2px}
+.iwrap{position:relative}
+.iicon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:rgba(244,209,37,.5);pointer-events:none;line-height:1}
+.finput{width:100%;background:rgba(18,17,8,.8);border:1px solid var(--gold-30);border-radius:8px;padding:14px 14px 14px 44px;font-family:var(--font);font-size:15px;color:#fff;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.finput::placeholder{color:#475569}
+.finput:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,209,37,.12)}
+.btn-sub{width:100%;background:var(--gold);color:var(--bg);font-family:var(--font);font-size:14px;font-weight:900;padding:16px 20px;border:none;border-radius:8px;text-transform:uppercase;letter-spacing:.08em;margin-top:8px;box-shadow:0 0 30px rgba(244,209,37,.2);transition:transform .15s,background .2s;-webkit-tap-highlight-color:transparent}
+.btn-sub:hover{background:rgba(244,209,37,.9)}
+.btn-sub:active{transform:scale(.98)}
+.ffoot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:16px}
+.lgpd{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--s600)}
+.online{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(34,197,94,.85)}
+.odot{width:7px;height:7px;background:#22c55e;border-radius:50%;animation:pulse 1.5s ease-in-out infinite;flex-shrink:0}
+
+/* Hero image */
+.hero-img-panel{display:none;position:relative;height:680px}
+
+/* ── URGENCY SECTION ── */
+.s-urgency{background:rgba(244,209,37,.03);border-top:1px solid rgba(244,209,37,.08);border-bottom:1px solid rgba(244,209,37,.08);padding:56px 16px}
+.sinner{max-width:1280px;margin:0 auto}
+.stitle{font-size:clamp(22px,6vw,46px);font-weight:700;color:#fff;text-transform:uppercase;text-align:center;margin-bottom:12px;letter-spacing:-.02em;line-height:1.1}
+.stitle .gi{color:var(--gold);font-style:italic}
+.sdesc{text-align:center;color:var(--s400);font-size:15px;margin-bottom:40px}
+
+.cdgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+.cdbox{background:var(--bg);border:1px solid var(--gold-20);border-radius:12px;padding:24px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.cdbox.danger{border-color:var(--red-30);box-shadow:0 0 20px rgba(255,59,59,.1)}
+.cdnum{font-family:var(--mono);font-size:clamp(32px,8vw,48px);font-weight:900;color:var(--gold);line-height:1}
+.cdbox.danger .cdnum{color:var(--red)}
+.cdlbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,209,37,.55)}
+.cdbox.danger .cdlbl{color:rgba(255,59,59,.55)}
+
+.rgrid{display:grid;grid-template-columns:1fr;gap:16px}
+.rcard{background:var(--w5);border-left:4px solid var(--gold);border-radius:16px;padding:24px;transition:background .2s}
+.rcard:hover{background:var(--w10)}
+.ricon{font-size:32px;line-height:1;margin-bottom:14px;transition:transform .2s}
+.rcard:hover .ricon{transform:scale(1.1)}
+.rtitle{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px}
+.rtext{font-size:14px;color:var(--s400);line-height:1.6;margin-bottom:14px}
+.rstat{font-size:22px;font-weight:700;color:var(--gold)}
+
+/* ── TEAM ── */
+.s-team{padding:56px 16px}
+.team-img-wrap{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--gold-20);aspect-ratio:1/1;margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto}
+.team-img-wrap img{width:100%;height:100%;object-fit:cover}
+.tim-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 55%);pointer-events:none}
+.tim-glow{position:absolute;inset:-16px;background:radial-gradient(ellipse at center,rgba(244,209,37,.08),transparent 65%);pointer-events:none}
+.tbadges{position:absolute;top:14px;right:14px;display:flex;flex-direction:column;gap:6px;z-index:5}
+.tbadge{background:var(--gold);color:var(--bg);font-size:9px;font-weight:900;padding:4px 8px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase}
+.ecard{position:absolute;bottom:14px;left:14px;right:14px;background:rgba(18,17,8,.92);border:1px solid var(--gold-30);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:5}
+.eicon{color:var(--gold);font-size:20px;flex-shrink:0}
+.ename{font-size:14px;font-weight:700;color:#fff;line-height:1.2}
+.erole{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,209,37,.65);margin-top:3px}
+.tteam-inner{display:grid;grid-template-columns:1fr;gap:36px}
+.ttitle{font-size:clamp(22px,6vw,44px);font-weight:700;color:#fff;text-transform:uppercase;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
+.ttitle .gi{color:var(--gold);font-style:italic}
+.tdesc{font-size:16px;color:var(--s400);line-height:1.7;margin-bottom:24px}
+.cklist{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.ckitem{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--s300);line-height:1.55}
+.ckicon{color:var(--gold);font-size:18px;flex-shrink:0;margin-top:1px}
+.ckitem strong{color:#fff;font-weight:600}
+.btn-prot{display:inline-flex;align-items:center;gap:8px;background:var(--w5);border:1px solid var(--gold);color:var(--gold);font-family:var(--font);font-size:14px;font-weight:700;padding:14px 24px;border-radius:12px;letter-spacing:.04em;text-transform:uppercase;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.btn-prot:hover{background:var(--gold);color:var(--bg)}
+
+/* ── CTA ── */
+.s-cta{padding:56px 16px;border-top:1px solid rgba(244,209,37,.1)}
+.ctabox{background:rgba(244,209,37,.04);border:1px solid var(--gold-20);border-radius:24px;padding:40px 24px;text-align:center;position:relative;overflow:hidden;max-width:800px;margin:0 auto}
+.ctabox::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(244,209,37,.08),transparent 70%);pointer-events:none}
+.ctabox::after{content:'';position:absolute;bottom:-60px;left:-60px;width:160px;height:160px;background:radial-gradient(circle,rgba(244,209,37,.06),transparent 70%);pointer-events:none}
+.ctatitle{font-size:clamp(20px,5vw,36px);font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
+.ctadesc{font-size:15px;color:var(--s400);margin-bottom:32px;line-height:1.6}
+.ctabtns{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:10px;background:#22c55e;color:#fff;font-family:var(--font);font-size:15px;font-weight:700;padding:16px 24px;border-radius:12px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 4px 20px rgba(34,197,94,.25);transition:background .2s,transform .15s;-webkit-tap-highlight-color:transparent}
+.btn-wa:hover{background:#16a34a}
+.btn-wa:active{transform:scale(.98)}
+.btn-ag{display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--bg);font-family:var(--font);font-size:15px;font-weight:700;padding:16px 24px;border:none;border-radius:12px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 0 20px rgba(244,209,37,.3);transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.btn-ag:hover{transform:scale(1.02)}
+.btn-ag:active{transform:scale(.98)}
+.plogos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:24px;opacity:.35;filter:grayscale(1);margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto}
+.plogos img{height:26px}
+.copy{margin-top:32px;font-size:12px;color:var(--s600);text-align:center;line-height:1.7}
+
+/* ── RESPONSIVE ── */
+@media(min-width:640px){
+  .ubar-inner{flex-direction:row;gap:32px}
+  .tnum{font-size:28px}
+  .cdgrid{grid-template-columns:repeat(4,1fr)}
+  .rgrid{grid-template-columns:1fr 1fr}
+  .ctabtns{flex-direction:row;justify-content:center}
+}
+@media(min-width:1024px){
+  .ubar{padding:12px 24px}
+  header{top:60px}
+  .hinner{padding:0 24px;height:80px}
+  .logo-main{font-size:20px}
+  .dnav{display:flex}
+  .hbg{display:none}
+  .hero-wrap{padding:48px 24px 80px}
+  .hero-grid{grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .hero-img-panel{display:flex;align-items:center;justify-content:center;position:relative;height:680px}
+  .s-urgency,.s-team{padding:80px 24px}
+  .s-cta{padding:80px 24px}
+  .rgrid{grid-template-columns:repeat(3,1fr)}
+  .tteam-inner{grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .team-img-wrap{margin-bottom:0;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<!-- MOBILE MENU -->
+<nav class="mmenu" id="mobileMenu">
+  <button class="mclose" onclick="closeMenu()">✕</button>
+  <a class="mnlink" href="#" onclick="closeMenu()">Diagnóstico</a>
+  <a class="mnlink" href="#" onclick="closeMenu()">Indenização</a>
+  <a class="mnlink" href="#" onclick="closeMenu()">Equipe Técnica</a>
+  <button class="btn-mcta" onclick="closeMenu()">Consultoria Urgente</button>
+</nav>
+
+<!-- URGENCY BAR -->
+<div class="ubar">
+  <div class="ubar-inner">
+    <div class="ulabel"><span class="uicon">⚠</span>VAGAS LIMITADAS PARA A SESSÃO DESTA SEMANA</div>
+    <div class="timer-row">
+      <div class="tunit"><span class="tnum neon-gold" id="cd-d">02</span><span class="tlbl">Dias</span></div>
+      <span class="tsep">:</span>
+      <div class="tunit"><span class="tnum neon-gold" id="cd-h">14</span><span class="tlbl">Horas</span></div>
+      <span class="tsep">:</span>
+      <div class="tunit"><span class="tnum neon-gold" id="cd-m">38</span><span class="tlbl">Min</span></div>
+      <span class="tsep">:</span>
+      <div class="tunit"><span class="tnum neon-gold" id="cd-s">05</span><span class="tlbl">Seg</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hinner">
+    <a class="logo" href="#">
+      <span class="logo-icon">⚠</span>
+      <div>
+        <div class="logo-main">Solar <span>em Risco</span></div>
+        <div class="logo-sub">Protocolo de Segurança Jurídica</div>
+      </div>
+    </a>
+    <nav class="dnav">
+      <a class="nlink" href="#">DIAGNÓSTICO</a>
+      <a class="nlink" href="#">INDENIZAÇÃO</a>
+      <a class="nlink" href="#">EQUIPE TÉCNICA</a>
+      <button class="btn-nav">CONSULTORIA URGENTE</button>
+    </nav>
+    <button class="hbg" id="hbg" onclick="openMenu()" aria-label="Menu">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section>
+  <div class="hero-wrap">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div>
+        <div class="abadge"><span class="abadge-icon">🚨</span>ALERTA: RISCO DE FALHA CRÍTICA DETECTADO</div>
+        <h1 class="hero-title">SEU SISTEMA <br/><span class="gi">PODE SER</span> UMA BOMBA-RELÓGIO.</h1>
+        <p class="hero-sub">Instalações solares sem certificação jurídica e técnica representam perigo real de incêndio, perda de garantia e prejuízos de até <strong style="color:#fff">R$ 50.000</strong>.</p>
+        <div class="fcard">
+          <div class="ftag">Protocolo de Emergência</div>
+          <div class="ftitle"><span class="ftitle-icon">📊</span>SOLICITAR ANÁLISE DE RISCO IMEDIATA</div>
+          <form onsubmit="return false;">
+            <div class="fgroup">
+              <label class="flabel">Nome Completo</label>
+              <div class="iwrap"><span class="iicon">👤</span><input class="finput" type="text" placeholder="Digite seu nome" autocomplete="name"/></div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel">E-mail Corporativo ou Pessoal</label>
+              <div class="iwrap"><span class="iicon">✉️</span><input class="finput" type="email" placeholder="exemplo@email.com" autocomplete="email"/></div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel">WhatsApp / Telefone</label>
+              <div class="iwrap"><span class="iicon">📞</span><input class="finput" type="tel" placeholder="(00) 00000-0000" autocomplete="tel"/></div>
+            </div>
+            <button class="btn-sub" type="submit">QUERO AVALIAR A SEGURANÇA DO MEU SISTEMA</button>
+          </form>
+          <div class="ffoot">
+            <span class="lgpd">🔒 Proteção de Dados LGPD Ativa</span>
+            <div class="online"><span class="odot"></span>9 peritos técnicos online</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right image (desktop only) -->
+      <div class="hero-img-panel">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,#121108,transparent 55%);z-index:2;pointer-events:none;border-radius:16px;"></div>
+        <div style="position:relative;width:100%;height:100%;background:rgba(244,209,37,.04);border-radius:16px;border:1px solid rgba(244,209,37,.1);overflow:hidden;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgZF5Q4W2t34ncLNVkfj0AuwyqJugDFQyP--j6VcVP9v0b8xlaEiS5hpp62DdGVjC2aqsAhGn3gOVqLAqbZrwibUCZoF8Jgrsb9QN5q4YWWRwCsEOHhfLxpEpNnjdaUbAHF7Gd9J7votZ9Fmz2JY-EDKMfH18R0J1N4FGiAzHr71KdGiI0gtUlRen6okEW8ABNv2biwkc1YLaUO3wFd8DbX-SlQbKJ36ofkiB55Qd2mIte6YwzUrmMDxSNJcOe0qLIB5BETtegHs5L" alt="Painéis solares" style="width:100%;height:100%;object-fit:cover;opacity:.4;filter:grayscale(30%);transition:opacity .6s,filter .6s;" onmouseover="this.style.opacity='.65';this.style.filter='grayscale(0)'" onmouseout="this.style.opacity='.4';this.style.filter='grayscale(30%)'"/>
+          <div style="position:absolute;top:28px;left:28px;z-index:10;background:rgba(18,17,8,.92);border:1px solid #f4d125;border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(10px);">
+            <span style="width:8px;height:8px;background:#ff3b3b;border-radius:50%;animation:blink 1s step-start infinite;flex-shrink:0;display:inline-block;"></span>
+            <span style="font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.05em;">Erro de Isolação #402</span>
+          </div>
+          <div style="position:absolute;bottom:60px;right:28px;z-index:10;background:rgba(18,17,8,.92);border:1px solid rgba(244,209,37,.3);border-radius:8px;padding:18px 20px;backdrop-filter:blur(10px);min-width:160px;">
+            <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,209,37,.55);margin-bottom:6px;">Probabilidade de Indenização</div>
+            <div class="neon-gold" style="font-family:var(--mono);font-size:30px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:8px;">94.8%</div>
+            <div style="height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;"><div style="width:94.8%;height:100%;background:var(--gold);border-radius:2px;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE AGIR AGORA -->
+<section class="s-urgency">
+  <div class="sinner">
+    <h2 class="stitle">POR QUE AGIR <span class="gi">AGORA?</span></h2>
+    <p class="sdesc">O tempo médio para perda de garantia por negligência técnica é de 18 meses.</p>
+    <div class="cdgrid">
+      <div class="cdbox"><span class="cdnum neon-gold">00</span><span class="cdlbl">Dias Restantes</span></div>
+      <div class="cdbox"><span class="cdnum neon-gold">12</span><span class="cdlbl">Horas de Janela</span></div>
+      <div class="cdbox"><span class="cdnum neon-gold">45</span><span class="cdlbl">Minutos P/ Análise</span></div>
+      <div class="cdbox danger"><span class="cdnum neon-red">09</span><span class="cdlbl">Segundos Vital</span></div>
+    </div>
+    <div class="rgrid">
+      <div class="rcard"><div class="ricon">🔧</div><h3 class="rtitle">Falhas Técnicas Ocultas</h3><p class="rtext">Mais de 40% das instalações sofrem com conexões mal feitas que oxidam em menos de 2 anos.</p><div class="rstat">+40%</div></div>
+      <div class="rcard"><div class="ricon">⚖️</div><h3 class="rtitle">Processos Judiciais</h3><p class="rtext">Aumento de 22% em ações contra integradoras que ignoram normas de segurança ABNT.</p><div class="rstat">2.5k Ativos</div></div>
+      <div class="rcard"><div class="ricon">💰</div><h3 class="rtitle">Prejuízo Recuperável</h3><p class="rtext">Média de indenizações pagas por falhas de projeto e geração menor que o prometido.</p><div class="rstat">R$ 15k Médio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEFESA HÍBRIDA -->
+<section class="s-team">
+  <div class="sinner">
+    <div class="tteam-inner">
+      <div class="team-img-wrap">
+        <div class="tim-glow"></div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvP3Hfq34dkOYk0Bjx2ODv_a-h6rMTv5ACJPXyDkgWF8nH0obd3mZFhclcOLRdnRoJu4FG3IcAer4JroxPqkMuateXMApfigp3_nlOx_8wj4e-ZKPlpZnimfLL0TFOukQxah_ztmkRyAcoTEC9dhnllydzitxijV1axNKke-KPnVIBUAl4NoRxTZ9uqFENFSmG-YzZWYbE2lSwnGc31L5HXm3vdrB6PW94sJW7uSA1YLmgHVS8zc5QrRimnGhQfu8VcPVG5BwFhU4X" alt="Dr. Roberto Mendes"/>
+        <div class="tim-overlay"></div>
+        <div class="tbadges"><span class="tbadge">OAB/SP Verified</span><span class="tbadge">CREA Certified</span></div>
+        <div class="ecard"><span class="eicon">✅</span><div><div class="ename">Dr. Roberto Mendes</div><div class="erole">Especialista em Direito Energético</div></div></div>
+      </div>
+      <div>
+        <h2 class="ttitle">DEFESA <span class="gi">HÍBRIDA</span>: JURÍDICA E ENGENHARIA</h2>
+        <p class="tdesc">Não somos apenas advogados. Somos uma força-tarefa composta por peritos em energia fotovoltaica e juristas especializados em responsabilidade civil.</p>
+        <ul class="cklist">
+          <li class="ckitem"><span class="ckicon">✅</span><span><strong>Auditoria de Projeto:</strong> Verificamos se sua usina entrega o que foi pago.</span></li>
+          <li class="ckitem"><span class="ckicon">✅</span><span><strong>Segurança Contra Incêndios:</strong> Laudos técnicos sobre o estado dos inversores e cablagens.</span></li>
+          <li class="ckitem"><span class="ckicon">✅</span><span><strong>Execução Judicial:</strong> Recuperação de valores por quebra de contrato e propaganda enganosa.</span></li>
+        </ul>
+        <a href="#" class="btn-prot">CONHECER NOSSO PROTOCOLO →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="s-cta">
+  <div class="sinner">
+    <div class="ctabox">
+      <h2 class="ctatitle">PRONTO PARA GARANTIR SEU INVESTIMENTO?</h2>
+      <p class="ctadesc">Nossos especialistas estão online para uma triagem gratuita de 30 minutos.</p>
+      <div class="ctabtns">
+        <a class="btn-wa" href="https://wa.me/55000000000">💬 FALAR NO WHATSAPP</a>
+        <button class="btn-ag">AGENDA DE CONSULTA</button>
+      </div>
+    </div>
+    <div class="plogos">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0hDG-eklV9z_6W83SoFiV4jlDGcllNRPIMhxxEroLxhbLzshSCjTk1Hqq1Y3Zjc3VBkxB99tl2MUvRBA1vJ_XRZ4wfz6Ife28wLvqR6WqsMpATqVikPF-x96FLqpCOXOjuFiAY1Pko2BIT3LeBH-xRUfpFgbXs2A3dWCeR0ZAUeNANFqGVR30bMVIWAMwNABDMK-wynOFMha8RA0Ta-NOfNNy7ewkDRKkaLOZNsjajo2fkPxCaby3XMKu5zKz3h_6SWrkkcNQeE74" alt="Parceiro"/>
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLCV7VAlGG_o0rqe_r0UksgxyR3kxWG-Zq3c_uhgAiH3fasnLgNt7cMRmyKPA60KItZz3_mVx5BUjkJ9wTqzFm2L2_8oEzYZgWBIioKryBx9khKhNayPfBCwS_h_KI5c6IAmB3Soupjyxx82SCKNk9v68b0ResdUbDIw_THK1iKGAKJUWtYaH9fkfD_iAoKgorhI6T7IFdKT4E_ZrtL78AwKOuegkge9Hc0rFQgK202B3SIHe2p1uk8Sv7XUna72Id5364X25LrBpE" alt="Parceiro"/>
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiJgbi_7csxS33MhgGoZePaFNlWQXLcnESWbcgI3KTIbUR9P7lekEIDbarBm7n1iLpz79A0G8-rxjG4VFfXxk5h-NlDJDTGSzvt8kGwZalEV453sJF8llRB3YJU9RIkzucWtXWj3xwWF8AbyNmt88SDnRgH378U9bfsqjyudSGbExBpGfbDUBphLeqka0HUYpy2vUo07JutWrLPoSFhyQ0JbfiWoHcu3v7HujVoX1q84GTXw0X46VwuBt9pD63sVtIceSOUryF81d7" alt="Certificação"/>
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuxeoCqakSKSDqI3zgeladAnpTlr4BVlpK5WONcNZhCqbkL6PN_pW3we1-r01uAFPrN6U_e__X3YewktUGVpeu0tpilp5ldRcxHfw8KWm9NYY9TtM5FaOcHrwN99FGIi5FAUbo7rIlJs1nTl9MVPE1kz6VPeQRI9NdugfRJNNgrE3Mx-ghuaATck256euBAedZEPdc9SFxYfrYlGmn4aYFiCsT0S7oIHBeyoAOM-GSPaURNoWSwah9dms-ErOtybJzdMnyH4fe_6Ue" alt="OAB"/>
+    </div>
+    <p class="copy">© 2024 Solar em Risco - Proteção Jurídica e Técnica para Sistemas Fotovoltaicos. Todos os direitos reservados.<br/>Termos de Uso | Política de Privacidade</p>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var pad=n=>String(n).padStart(2,'0');
+  var end=Date.now()+(2*86400+14*3600+38*60+5)*1000;
+  function tick(){
+    var d=Math.max(0,Math.floor((end-Date.now())/1000));
+    document.getElementById('cd-d').textContent=pad(Math.floor(d/86400));
+    document.getElementById('cd-h').textContent=pad(Math.floor((d%86400)/3600));
+    document.getElementById('cd-m').textContent=pad(Math.floor((d%3600)/60));
+    document.getElementById('cd-s').textContent=pad(d%60);
+  }
+  tick();setInterval(tick,1000);
+})();
+function openMenu(){
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('b1').style.transform='translateY(7px) rotate(45deg)';
+  document.getElementById('b2').style.opacity='0';
+  document.getElementById('b3').style.transform='translateY(-7px) rotate(-45deg)';
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('b1').style.transform='';
+  document.getElementById('b2').style.opacity='1';
+  document.getElementById('b3').style.transform='';
+}
+</script>
+</body>
+</html>
