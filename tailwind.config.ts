@@ -15,6 +15,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Playfair Display", "serif"],
+        body: ["Inter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -23,9 +25,12 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#ea580c", // Solar Orange OVERRIDE
           foreground: "hsl(var(--primary-foreground))",
         },
+        midnight: "#0a1224", // Deep Midnight Navy
+        "ice-blue": "#f4faff", // Refined Ice Blue
+        "body-gray": "#475569",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -73,6 +78,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'premium': '0 20px 50px -12px rgba(0, 0, 0, 0.08)',
+        'cta-glow': '0 10px 30px -5px rgba(234, 88, 12, 0.4)',
       },
       keyframes: {
         "accordion-down": {

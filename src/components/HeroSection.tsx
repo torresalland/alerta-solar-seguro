@@ -1,42 +1,55 @@
-import { AlertTriangle, ShieldCheck } from "lucide-react";
+import React from "react";
+import { getWhatsAppUrl } from "../utils/whatsapp";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-24">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-slate-50 opacity-50 -z-10" />
-      
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-warning/30 bg-warning/10 px-4 py-2 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <AlertTriangle className="h-5 w-5 text-warning" />
-            <span className="text-sm font-bold uppercase tracking-wider text-warning">
-              Alerta Técnico ABNT NBR 17.193:2025
-            </span>
+    <section className="relative pt-48 pb-32 lg:pt-64 lg:pb-48 bg-white overflow-hidden">
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-3xl opacity-50"></div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="space-y-10">
+            <div className="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold tracking-[0.2em] uppercase bg-slate-100 text-midnight border border-slate-200">
+              <span className="material-symbols-outlined text-base mr-2 text-primary">gavel</span>
+              Estratégia Técnico-Legal ABNT
+            </div>
+            <h1 className="text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+              Em <span className="text-highlight">30 minutos</span> você vai descobrir se sua instalação
+              solar está irregular e se tem direito à <span className="text-highlight">indenização</span> conforme a norma vigente.
+            </h1>
+            <h2 className="text-xl lg:text-2xl text-slate-500 max-w-xl leading-relaxed font-display font-normal">
+              Agende agora uma sessão <span className="text-green-600">GRATUITA</span> com um especialista e
+              identifique o risco técnico por <strong>ausência de dispositivo RSD</strong> em inversores
+              String e sua oportunidade de <strong>reparação jurídica</strong>.
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-6 pt-4">
+              <a className="cta-gradient inline-flex items-center justify-center px-6 py-4 sm:px-10 sm:py-5 bg-primary text-white font-black text-sm sm:text-lg md:text-xl rounded-xl shadow-cta-glow hover:-translate-y-1 transition-all uppercase tracking-tight text-center" href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer">
+                DIAGNÓSTICO <span className="mx-1.5 underline decoration-white/40">TÉCNICO</span> ESPECIALIZADO
+                <span className="material-symbols-outlined ml-3">engineering</span>
+              </a>
+            </div>
+            <div className="pt-12 border-t border-slate-100">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 mb-6">Autoridade Técnica e Normativa</p>
+              <div className="flex flex-wrap items-center gap-10 opacity-40 grayscale">
+                <img alt="Logo OAB" className="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwNGOnLGE3d8KLJ-KMfWzu9MLiPI_J2iKwq16IgnTB37raWzRzKl6VjrHcmCmF0vtvpdVBwPiU89FfwjZ_jvg4shR97Q_nozxgg2c4KUtbRJ90N-XVZmv_z_QE2hOa3NTDoxNo5nMh-O-KdP0FkaGdFc7bAi1MLuUZdATWFaZf0FOWbjL3DRCUmCEauN2XxLwlp00CZ4Jrgrzx7IpHAv2MYcmceEPKfOOijTMkgdcfSdM7d3XBvhfE2YjPNIwqrda4Poifl6dZT0M" />
+                <span className="font-display font-bold text-xl tracking-tighter text-midnight">ABNT NBR 17.193</span>
+                <div className="flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xl">verified</span>
+                  <span className="font-bold text-sm">PROTESTO TÉCNICO</span>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-primary mb-6 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-150">
-            Seu sistema solar pode estar em <span className="text-warning">desconformidade</span> com a norma de segurança desde 2025.
-          </h1>
-
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl mb-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-300">
-            A nova norma estabelece requisitos rígidos de <strong>desligamento rápido (RSD)</strong>. Mesmo gerando energia normalmente, instalações fora do padrão apresentam riscos ocultos irreparáveis.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md animate-in fade-in slide-in-from-bottom-7 duration-700 delay-450">
-            <a 
-              href="#formulario"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-warning hover:bg-warning/90 text-white px-8 py-4 text-lg font-bold uppercase tracking-wide shadow-lg transition-all transform hover:-translate-y-1"
-            >
-              <ShieldCheck className="w-5 h-5" />
-              Verificar Conformidade (Grátis)
-            </a>
+          <div className="relative">
+            <div className="absolute inset-0 bg-slate-200 translate-x-4 translate-y-4 rounded-[2.5rem]"></div>
+            <img alt="Análise de Conformidade Solar" className="relative z-10 w-full h-[400px] lg:h-[650px] object-cover rounded-[2.5rem] shadow-premium ring-1 ring-black/5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnLQeu6nkOGl_ZYBbS468UOc10aQEZzv4nfivSHsLWt3k5UvIRJan5PxAHuTnOhVxhdjUseYhPVO1SNz-1S1dyyhqdixEdc58WRAz7XM_SR7bKnS-0jUQNWNJC094fOGhybFSBifj9pCiYa7kHaKWZ948fyWGqIQ2mNxnUnU69J2BRJ0CymZDErLJTTdxhf9TAeykqrHHyD6Q7doSPIQIhjTVzB301Izda07QbJmndHnuzCAyvijzjqxrROZLljw8tXzVwmi6pBgo" />
+            <div className="absolute -bottom-8 -left-8 z-20 bg-white p-8 rounded-2xl shadow-premium border border-slate-100 max-w-xs">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="font-bold text-midnight uppercase tracking-wider text-xs">Agenda de Auditoria</span>
+              </div>
+              <p className="text-sm text-slate-500 leading-relaxed">Vagas para análise de conformidade <span className="text-primary font-bold italic">GRATUITA</span> esta semana.</p>
+            </div>
           </div>
-
-          <p className="mt-6 text-sm text-muted-foreground max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
-            Diagnóstico técnico gratuito baseado estritamente na norma vigente. Não vendemos ações judiciais.
-          </p>
         </div>
       </div>
     </section>

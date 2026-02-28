@@ -1,15 +1,10 @@
 import { MessageCircle } from "lucide-react";
-
-const WHATSAPP_NUMBER = "5511936197888";
+import { getWhatsAppUrl } from "../utils/whatsapp";
 
 const WhatsAppButton = () => {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    "Olá, gostaria de verificar a conformidade do meu sistema fotovoltaico."
-  )}`;
-
   return (
     <a
-      href={url}
+      href={getWhatsAppUrl()}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Fale conosco pelo WhatsApp"
