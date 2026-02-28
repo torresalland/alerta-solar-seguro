@@ -35,7 +35,7 @@ export const PageFooter = () => {
             <a className="hover:text-white transition-colors" href="#">Compliance</a>
           </nav>
           <div className="text-[10px] text-slate-600 font-bold uppercase tracking-widest text-left md:text-right">
-            <b>© 2026 SolarSEMRISCO – Intelligence &amp; Legal Strategy</b><br />
+            <b>© 2025 SolarSEMRISCO – Intelligence &amp; Legal Strategy</b><br />
             Auditoria Técnica de Sistemas Fotovoltaicos em conformidade com a <b>NBR 17.193:2025</b>.<br />
             <i>Gestão de riscos, perícia em segurança elétrica e proteção patrimonial solar.</i>
           </div>
