@@ -28,9 +28,9 @@ export default {
           DEFAULT: "#ea580c", // Solar Orange OVERRIDE
           foreground: "hsl(var(--primary-foreground))",
         },
-        midnight: "#0a1224", // Deep Midnight Navy
-        "ice-blue": "#f4faff", // Refined Ice Blue
-        "body-gray": "#475569",
+        midnight: "#ffffff", // Overridden for dark mode text
+        "ice-blue": "#0a0a0a", // Overridden to match dark theme
+        "body-gray": "#d1d5db", // Lightened for dark mode
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

@@ -7,24 +7,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 210 20% 15%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 20% 15%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 20% 15%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 222 47% 11%;
     /* Deep Blue #0f172a */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 210 20% 15%;
+    --secondary-foreground: 210 15% 95%;
 
-    --muted: 210 15% 93%;
-    --muted-foreground: 210 8% 45%;
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 8% 65%;
 
     --accent: 51 100% 44%;
     --accent-foreground: 210 40% 15%;
@@ -97,20 +97,27 @@
     line-height: 1.6;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display text-midnight;
   }
 }
 
 @layer utilities {
   .pattern-bg {
-    background-color: #f4faff;
-    background-image: radial-gradient(#0a1224 0.5px, transparent 0.5px);
+    background-color: #000000;
+    background-image: radial-gradient(#1f2937 0.5px, transparent 0.5px);
     background-size: 30px 30px;
     background-attachment: fixed;
     opacity: 0.4;
   }
-  
+
+  .bg-white {
+    background-color: transparent !important;
+  }
+
   .cta-gradient {
     background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
   }
@@ -125,21 +132,24 @@
 }
 
 /* FAQ Acordeon custom logic from HTML prototype */
-.faq-item input:checked ~ .faq-content {
+.faq-item input:checked~.faq-content {
   max-height: 500px;
   padding-top: 1rem;
   padding-bottom: 1.5rem;
   opacity: 1;
 }
-.faq-item input:checked ~ label .faq-icon {
+
+.faq-item input:checked~label .faq-icon {
   transform: rotate(45deg);
 }
+
 .faq-content {
   max-height: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
 }
+
 .faq-icon {
   transition: transform 0.3s ease;
 }
