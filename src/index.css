@@ -105,3 +105,29 @@
 .animate-pulse-cta {
   animation: pulse-cta 2s ease-in-out infinite;
 }
+
+/* FAQ Accordion funcional com CSS puro */
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease, opacity 0.3s ease;
+  padding-bottom: 0;
+}
+
+.faq-item input:checked ~ .faq-content {
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0), padding 0.3s ease, opacity 0.3s ease;
+  padding-bottom: 1.5rem;
+}
+
+.faq-item input:checked ~ label .faq-icon {
+  transform: rotate(45deg);
+  background-color: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+}
+
+.faq-item label .faq-icon {
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}

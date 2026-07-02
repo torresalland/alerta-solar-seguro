@@ -23,7 +23,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col font-body selection:bg-primary/20 bg-white">
+    <div className="min-h-screen flex flex-col font-body selection:bg-primary/20 bg-background text-foreground transition-colors duration-300">
       <Header />
       <main className="flex-1 w-full overflow-x-hidden">
         <HeroSection />
